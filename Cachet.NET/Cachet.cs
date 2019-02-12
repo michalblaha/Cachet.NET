@@ -1,9 +1,10 @@
 ﻿namespace Cachet.NET
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using global::Cachet.NET.Responses;
-
+    using global::Cachet.NET.Responses.Objects;
     using RestSharp;
     using RestSharp.Authenticators;
 
@@ -162,6 +163,53 @@
         }
 
 
+        protected Resp GetItemsReq<Resp, Obj>(string apiPath)
+            where Resp : GeneralCollectionResponse<Obj>, new()
+            where Obj : class, Responses.Objects.ICachetItem, new()
+        {
+            {
+
+                var Request = new RestRequest(apiPath );
+                var Response = this.Rest.Get<Resp>(Request);
+
+                if (Response.ResponseStatus == ResponseStatus.Completed)
+                {
+                    var response = Response.Data;
+
+                    if (response != null)
+                    {
+                        return response;
+                    }
+                }
+
+                return null;
+            }
+
+        }
+
+        protected Resp GetItemReq<Resp,Obj>(string apiPath, int id)
+            where Resp : GeneralSimpleResponse<Obj>, new()
+            where Obj : class, Responses.Objects.ICachetItem, new()
+        {
+            {
+
+                var Request = new RestRequest(apiPath + "{id}").AddUrlSegment("id", id);
+                var Response = this.Rest.Get<Resp>(Request);
+
+                if (Response.ResponseStatus == ResponseStatus.Completed)
+                {
+                    var response = Response.Data;
+
+                    if (response != null)
+                    {
+                        return response;
+                    }
+                }
+
+                return null;
+            }
+
+        }
 
         protected bool DeleteReq(string apiPath, int id)
         {
@@ -178,12 +226,12 @@
 
         }
 
-        protected Resp UpdateMetric<ReqObj,Resp>(string apiPath, ReqObj item)
+        protected Resp UpdateReq<ReqObj,Resp>(string apiPath, ReqObj item)
             where ReqObj : Responses.Objects.ICachetItem
             where Resp : class, new()
         {
 
-            var Request = new RestRequest("metrics/{id}")
+            var Request = new RestRequest(apiPath + "{id}")
                 .AddUrlSegment("id", item.Id)
                 .AddJsonBody(item);
             var Response = this.Rest.Put<Resp>(Request);

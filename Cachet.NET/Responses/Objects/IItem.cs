@@ -10,4 +10,5 @@ namespace Cachet.NET.Responses.Objects
     {
         int Id { get; set; }
     }
+
 }

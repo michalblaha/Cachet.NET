@@ -4,7 +4,7 @@
 
     using RestSharp.Deserializers;
 
-    public class IncidentResponse : GeneralResponse<IncidentObject>
+    public class IncidentResponse : GeneralSimpleResponse<IncidentObject>
     {
 
     }

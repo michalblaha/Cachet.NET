@@ -1,6 +1,6 @@
 ﻿namespace Cachet.NET.Responses
 {
-    public class VersionResponse : GeneralResponse<string>
+    public class VersionResponse : BaseGeneralResponse<string>
     {
         public  VersionMetaObject Meta { get; set; }
 

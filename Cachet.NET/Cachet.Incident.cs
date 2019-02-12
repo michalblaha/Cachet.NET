@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
 
     using global::Cachet.NET.Responses;
-
+    using global::Cachet.NET.Responses.Objects;
     using RestSharp;
     using RestSharp.Authenticators;
 
@@ -16,25 +16,8 @@
         /// </summary>
         public IncidentsResponse GetIncidents()
         {
-            if (this.Initialized == false)
-            {
-                return null;
-            }
-
-            var Request = new RestRequest("incidents");
-            var Response = this.Rest.Get<IncidentsResponse>(Request);
-
-            if (Response.ResponseStatus == ResponseStatus.Completed)
-            {
-                var incidentsResponse = Response.Data;
-
-                if (incidentsResponse != null)
-                {
-                    return incidentsResponse;
-                }
-            }
-
-            return null;
+            return GetItemsReq<IncidentsResponse, IncidentObject>("incidents");
+            
         }
 
         /// <summary>
@@ -66,28 +49,12 @@
         /// <summary>
         /// Gets the specified Incident of the Cachet API.
         /// </summary>
-        /// <param name="IncidentId">The Incident identifier.</param>
-        public IncidentResponse GetIncident(int IncidentId)
+        /// <param name="id">The Incident identifier.</param>
+        public IncidentResponse GetIncident(int id)
         {
-            if (this.Initialized == false)
-            {
-                return null;
-            }
 
-            var Request = new RestRequest("incidents/{incidentId}").AddUrlSegment("incidentId", IncidentId);
-            var Response = this.Rest.Get<IncidentResponse>(Request);
-
-            if (Response.ResponseStatus == ResponseStatus.Completed)
-            {
-                var IncidentResponse = Response.Data;
-
-                if (IncidentResponse != null)
-                {
-                    return IncidentResponse;
-                }
-            }
-
-            return null;
+            return GetItemReq<IncidentResponse, IncidentObject>("incidents/", id);
+            
         }
 
         /// <summary>

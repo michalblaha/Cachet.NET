@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
 
     using global::Cachet.NET.Responses;
-
+    using global::Cachet.NET.Responses.Objects;
     using RestSharp;
     using RestSharp.Authenticators;
 
@@ -41,22 +41,8 @@
 
         public ComponentGroupResponse UpdateComponentGroup(Responses.Objects.ComponentGroupObject item)
         {
-
-            var Request = new RestRequest("components/groups/{id}")
-                .AddUrlSegment("id", item.Id)
-                .AddJsonBody(item);
-            var Response = this.Rest.Put<ComponentGroupResponse>(Request);
-
-            if (Response.ResponseStatus == ResponseStatus.Completed)
-            {
-                var response = Response.Data;
-
-                if (response != null)
-                {
-                    return response;
-                }
-            }
-            return null;
+            return UpdateReq<Responses.Objects.ComponentGroupObject, ComponentGroupResponse>("components/groups/", item);
+            
         }
 
 
@@ -72,22 +58,8 @@
         /// </summary>
         public ComponentGroupResponse GetComponentGroup(int id)
         {
-
-            var Request = new RestRequest("components/groups/{id}")
-                .AddUrlSegment("id", id);
-            var Response = this.Rest.Get<ComponentGroupResponse>(Request);
-
-            if (Response.ResponseStatus == ResponseStatus.Completed)
-            {
-                var response = Response.Data;
-
-                if (response != null)
-                {
-                    return response;
-                }
-            }
-
-            return null;
+            return GetItemReq<ComponentGroupResponse, ComponentGroupObject>("components/groups/", id);
+            
         }
 
         /// <summary>
@@ -95,25 +67,8 @@
         /// </summary>
         public ComponentGroupsResponse GetComponentGroups()
         {
-            if (this.Initialized == false)
-            {
-                return null;
-            }
-
-            var Request = new RestRequest("components/groups");
-            var Response = this.Rest.Get<ComponentGroupsResponse>(Request);
-
-            if (Response.ResponseStatus == ResponseStatus.Completed)
-            {
-                var ComponentGroupsResponse = Response.Data;
-
-                if (ComponentGroupsResponse != null)
-                {
-                    return ComponentGroupsResponse;
-                }
-            }
-
-            return null;
+            return GetItemsReq<ComponentGroupsResponse, ComponentGroupObject>("components/groups");
+            
         }
 
         /// <summary>
@@ -142,32 +97,6 @@
             return null;
         }
 
-        /// <summary>
-        /// Gets the specified group of components of the Cachet API.
-        /// </summary>
-        /// <param name="ComponentGroupId">The component group identifier.</param>
-        public ComponentGroupsResponse GetComponentGroups(int ComponentGroupId)
-        {
-            if (this.Initialized == false)
-            {
-                return null;
-            }
-
-            var Request = new RestRequest("components/groups/{componentGroupId}").AddUrlSegment("componentGroupId", ComponentGroupId);
-            var Response = this.Rest.Get<ComponentGroupsResponse>(Request);
-
-            if (Response.ResponseStatus == ResponseStatus.Completed)
-            {
-                var ComponentGroupsResponse = Response.Data;
-
-                if (ComponentGroupsResponse != null)
-                {
-                    return ComponentGroupsResponse;
-                }
-            }
-
-            return null;
-        }
 
         /// <summary>
         /// Gets the specified group of components of the Cachet API.

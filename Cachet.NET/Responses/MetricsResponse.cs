@@ -5,7 +5,7 @@
     using RestSharp.Deserializers;
     using System.Collections.Generic;
 
-    public class MetricsResponse : GeneralResponse<List<MetricObject>>
+    public class MetricsResponse : GeneralCollectionResponse<MetricObject>
     {
 
     }

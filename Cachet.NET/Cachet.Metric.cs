@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
 
     using global::Cachet.NET.Responses;
-
+    using global::Cachet.NET.Responses.Objects;
     using RestSharp;
     using RestSharp.Authenticators;
 
@@ -11,40 +11,14 @@
     {
         public MetricsResponse GetMetrics()
         {
-
-            var Request = new RestRequest("metrics");
-            var Response = this.Rest.Get<MetricsResponse>(Request);
-
-            if (Response.ResponseStatus == ResponseStatus.Completed)
-            {
-                var metricsResponse = Response.Data;
-
-                if (metricsResponse != null)
-                {
-                    return metricsResponse;
-                }
-            }
-
-            return null;
+            return GetItemsReq<MetricsResponse, MetricObject>("metrics");
+            
         }
 
         public MetricResponse GetMetric(int id)
         {
-
-            var Request = new RestRequest("metrics/{id}").AddUrlSegment("id", id);
-            var Response = this.Rest.Get<MetricResponse>(Request);
-
-            if (Response.ResponseStatus == ResponseStatus.Completed)
-            {
-                var metricResponse = Response.Data;
-
-                if (metricResponse != null)
-                {
-                    return metricResponse;
-                }
-            }
-
-            return null;
+            return GetItemReq<MetricResponse, MetricObject>("metrics/", id);
+            
         }
 
 
@@ -82,22 +56,8 @@
 
         public MetricResponse UpdateMetric(Responses.Objects.MetricObject item)
         {
-
-            var Request = new RestRequest("metrics/{id}")
-                .AddUrlSegment("id", item.Id)
-                .AddJsonBody(item);
-            var Response = this.Rest.Put<MetricResponse>(Request);
-
-            if (Response.ResponseStatus == ResponseStatus.Completed)
-            {
-                var metricResponse = Response.Data;
-
-                if (metricResponse != null)
-                {
-                    return metricResponse;
-                }
-            }
-            return null;
+            return UpdateReq<Responses.Objects.MetricObject, MetricResponse>("metrics/", item);
+            
         }
 
         public bool DeleteMetric(int id)

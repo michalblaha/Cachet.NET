@@ -3,27 +3,37 @@
     using global::Cachet.NET.Responses.Objects;
 
     using RestSharp.Deserializers;
+    using System.Collections.Generic;
 
-    public class GeneralResponse<T>
+    public class GeneralSimpleResponse<T> : BaseGeneralResponse<T>
+            where T : class, ICachetItem, new()
     {
-        /// <summary>
-        /// Gets or sets the <see cref="MetaObject"/>.
-        /// </summary>
-        public  MetaObject Meta
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the Incident.
-        /// </summary>
         [DeserializeAs(Name = "data")]
         public T Data
         {
             get;
             set;
         }
+
+    }
+    public class GeneralCollectionResponse<T> : BaseGeneralResponse<T>
+            where T : ICachetItem, new()
+    {
+        [DeserializeAs(Name = "data")]
+        public List<T> Data { get; set; }
+    }
+
+    public abstract class BaseGeneralResponse<T>
+    {
+        /// <summary>
+        /// Gets or sets the <see cref="MetaObject"/>.
+        /// </summary>
+        public MetaObject Meta
+        {
+            get;
+            set;
+        }
+
 
     }
 }

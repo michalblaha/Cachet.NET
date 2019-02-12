@@ -4,7 +4,7 @@
 
     using RestSharp.Deserializers;
 
-    public class MetricResponse : GeneralResponse<MetricObject>
+    public class MetricResponse : GeneralSimpleResponse<MetricObject>
     {
 
     }

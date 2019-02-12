@@ -6,7 +6,7 @@
 
     using RestSharp.Deserializers;
 
-    public class ComponentGroupsResponse : GeneralResponse<List<ComponentGroupObject>>
+    public class ComponentGroupsResponse : GeneralCollectionResponse<ComponentGroupObject>
     {
 
     }

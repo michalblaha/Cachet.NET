@@ -1,9 +1,10 @@
 ﻿namespace Cachet.NET
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using global::Cachet.NET.Responses;
-
+    using global::Cachet.NET.Responses.Objects;
     using RestSharp;
     using RestSharp.Authenticators;
 
@@ -14,25 +15,7 @@
         /// </summary>
         public ComponentsResponse GetComponents()
         {
-            if (this.Initialized == false)
-            {
-                return null;
-            }
-
-            var Request = new RestRequest("components");
-            var Response = this.Rest.Get<ComponentsResponse>(Request);
-
-            if (Response.ResponseStatus == ResponseStatus.Completed)
-            {
-                var ComponentsResponse = Response.Data;
-
-                if (ComponentsResponse != null)
-                {
-                    return ComponentsResponse;
-                }
-            }
-
-            return null;
+            return GetItemsReq<ComponentsResponse, ComponentObject>("components/");
         }
 
 
@@ -68,21 +51,7 @@
         /// <param name="id">The component identifier.</param>
         public ComponentResponse GetComponent(int id)
         {
-
-            var Request = new RestRequest("components/{id}").AddUrlSegment("id", id);
-            var Response = this.Rest.Get<ComponentResponse>(Request);
-
-            if (Response.ResponseStatus == ResponseStatus.Completed)
-            {
-                var ComponentResponse = Response.Data;
-
-                if (ComponentResponse != null)
-                {
-                    return ComponentResponse;
-                }
-            }
-
-            return null;
+            return GetItemReq<ComponentResponse, ComponentObject>("components/", id);
         }
 
 
@@ -121,24 +90,10 @@
             return null;
         }
 
-        public ComponentResponse UpdateComponent(Responses.Objects.ComponentObject component)
+        public ComponentResponse UpdateComponent(Responses.Objects.ComponentObject item)
         {
-
-            var Request = new RestRequest("components/{componentId}")
-                .AddUrlSegment("componentId", component.Id)
-                .AddJsonBody(component);
-            var Response = this.Rest.Put<ComponentResponse>(Request);
-
-            if (Response.ResponseStatus == ResponseStatus.Completed)
-            {
-                var ComponentResponse = Response.Data;
-
-                if (ComponentResponse != null)
-                {
-                    return ComponentResponse;
-                }
-            }
-            return null;
+            return UpdateReq<Responses.Objects.ComponentObject, ComponentResponse>("components/", item);
+            
         }
 
 
