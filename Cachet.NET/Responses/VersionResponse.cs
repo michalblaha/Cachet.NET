@@ -1,74 +1,22 @@
 ﻿namespace Cachet.NET.Responses
 {
-    public class VersionResponse
+    public class VersionResponse : GeneralResponse<string>
     {
-        /// <summary>
-        /// Gets or sets the <see cref="MetaObject"/>.
-        /// </summary>
-        public MetaObject Meta
-        {
-            get;
-            set;
-        }
+        public  VersionMetaObject Meta { get; set; }
 
-        /// <summary>
-        /// Gets or sets the data.
-        /// </summary>
-        public string Data
+        public class VersionMetaObject
         {
-            get;
-            set;
-        }
 
-        public class MetaObject
-        {
-            /// <summary>
-            /// Gets or sets a value indicating whether this version is the latest.
-            /// </summary>
-            public bool OnLatest
+                public bool On_latest { get; set; }
+                public LatestObj Latest { get; set; }
+
+            public class LatestObj
             {
-                get;
-                set;
+                public string Tag_name { get; set; }
+                public bool Prelease { get; set; }
+                public bool Draft { get; set; }
             }
 
-            /// <summary>
-            /// Gets or sets the <see cref="LatestObject"/>.
-            /// </summary>
-            public LatestObject Latest
-            {
-                get;
-                set;
-            }
-
-            public class LatestObject
-            {
-                /// <summary>
-                /// Gets or sets the name of the tag.
-                /// </summary>
-                public string TagName
-                {
-                    get;
-                    set;
-                }
-
-                /// <summary>
-                /// Gets or sets a value indicating whether this version is a pre-release.
-                /// </summary>
-                public bool PreRelease
-                {
-                    get;
-                    set;
-                }
-
-                /// <summary>
-                /// Gets or sets a value indicating whether this version is draft.
-                /// </summary>
-                public bool Draft
-                {
-                    get;
-                    set;
-                }
-            }
         }
     }
 }

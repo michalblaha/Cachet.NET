@@ -3,8 +3,10 @@
     using global::Cachet.NET.Responses.Objects;
 
     using RestSharp.Deserializers;
+    using System.Collections.Generic;
 
-    public class ComponentResponse : GeneralResponse<ComponentObject>
+    public class MetricsResponse : GeneralResponse<List<MetricObject>>
     {
+
     }
 }

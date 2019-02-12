@@ -1,10 +1,13 @@
 ﻿namespace Cachet.NET.Responses
 {
+    using System.Collections.Generic;
+
     using global::Cachet.NET.Responses.Objects;
 
     using RestSharp.Deserializers;
 
-    public class ComponentResponse : GeneralResponse<ComponentObject>
+    public class ComponentGroupResponse : GeneralResponse<ComponentGroupObject>
     {
+
     }
 }

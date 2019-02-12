@@ -1,10 +1,20 @@
 ﻿namespace Cachet.NET.Responses.Objects
 {
+    using RestSharp.Deserializers;
     using System;
 
-    public class ComponentGroupObject
+    public class ComponentGroupObject : ICachetItem
     {
-        public int Identifier
+
+        public enum CollapsedType : int
+        {
+            No =0,
+            Yes = 1,
+            OnlyIfNotOperational = 2
+        }
+
+        [DeserializeAs(Name = "id")]
+        public int Id
         {
             get;
             set;
@@ -34,7 +44,8 @@
             set;
         }
 
-        public int Collapsed
+
+        public CollapsedType Collapsed
         {
             get;
             set;

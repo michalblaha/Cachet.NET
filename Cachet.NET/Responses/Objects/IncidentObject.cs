@@ -4,10 +4,10 @@ namespace Cachet.NET.Responses.Objects
 {
     using System;
 
-    public class IncidentObject
+    public class IncidentObject : ICachetItem
     {
         [DeserializeAs(Name = "id")]
-        public int Identifier
+        public int Id
         {
             get;
             set;

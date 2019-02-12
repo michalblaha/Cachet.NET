@@ -4,7 +4,8 @@
 
     using RestSharp.Deserializers;
 
-    public class ComponentResponse : GeneralResponse<ComponentObject>
+    public class MetricResponse : GeneralResponse<MetricObject>
     {
+
     }
 }

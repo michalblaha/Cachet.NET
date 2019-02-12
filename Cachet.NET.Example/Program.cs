@@ -5,28 +5,35 @@
 
     internal class Program
     {
+
+        static string Url = "http://18.194.53.184/api/v1/";//"https://demo.cachethq.io/api/v1/";
+        static string apiKey = "WvR72MkWqxSfIEsiiUqo";//"9yMHsdioQosnyVK4iCVR";
         /// <summary>
         /// Defines the entry point of the application.
         /// </summary>
         internal static void Main()
         {
-            var Cachet = new Cachet("https://demo.cachethq.io/api/v1/", "");
+            var Cachet = new Cachet(Url, apiKey);
 
             Console.WriteLine("Ping : " + Cachet.Ping() + ".");
 
             var Version = Cachet.GetVersion();
 
-            Console.WriteLine("Version : " + Version.Meta.Latest.TagName);
+            Console.WriteLine("Version : " + Version.Meta   .Latest.Tag_name);
 
-            var Compo = Cachet.GetComponents();
 
             Console.WriteLine("Components : ");
 
-            foreach (var Component in Compo.Components)
+            var newComp = Cachet.NewComponent("New component " + DateTime.Now.ToString(), "New testing component descr",
+                Responses.Objects.ComponentStatus.Operational, "");
+
+            var Compo = Cachet.GetComponents();
+
+            foreach (var Component in Compo.Data)
             {
                 Console.WriteLine(" - " + Component.Name);
 
-                if (Component.Tags.Count == 1)
+                if (Component.Tags.Count() == 1)
                 {
                     Console.WriteLine(" -- Tags : " + Component.Tags.First());
                 }
@@ -42,12 +49,13 @@
 
                 Console.WriteLine();
             }
+            Console.WriteLine("Deleting test component: " + Cachet.DeleteComponent(newComp.Data.Id).ToString());
 
             var CompoGr = Cachet.GetComponentGroups();
 
             Console.WriteLine("Groups : ");
 
-            foreach (var Group in CompoGr.Groups)
+            foreach (var Group in CompoGr.Data)
             {
                 Console.WriteLine(" - " + Group.Name);
             }
@@ -57,9 +65,20 @@
 
             Console.WriteLine("Incidents : ");
 
-            foreach (var incident in incidents.Incidents)
+            foreach (var incident in incidents.Data)
             {
                 Console.WriteLine(" - " + incident.Name);
+            }
+
+
+
+            var metrics = Cachet.GetMetrics();
+
+            Console.WriteLine("Metrics : ");
+
+            foreach (var m in metrics.Data)
+            {
+                Console.WriteLine(" - " + m.Name);
             }
 
             Console.ReadKey(false);

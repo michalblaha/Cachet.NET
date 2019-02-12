@@ -1,11 +1,13 @@
 ﻿namespace Cachet.NET.Responses.Objects
 {
+    using RestSharp.Deserializers;
     using System;
     using System.Collections.Generic;
 
-    public class ComponentObject
+    public class ComponentObject : ICachetItem
     {
-        public int Identifier
+        [DeserializeAs(Name = "id")]
+        public int Id
         {
             get;
             set;
@@ -71,7 +73,7 @@
             set;
         }
 
-        public Dictionary<string, string> Tags
+        public List<string> Tags
         {
             get;
             set;

@@ -6,14 +6,8 @@
 
     using RestSharp.Deserializers;
 
-    public class IncidentsResponse
+    public partial class IncidentsResponse : GeneralResponse<List<IncidentObject>>
     {
-        /// <summary>
-        /// Gets or sets the <see cref="MetaObject"/>.
-        /// </summary>
-        public MetaObject Meta
-        {
-            get;
             set;
         }
 
@@ -80,17 +74,5 @@
                 {
                     public int NextPage
                     {
-                        get;
-                        set;
-                    }
-
-                    public int PreviousPage
-                    {
-                        get;
-                        set;
-                    }
-                }
-            }
-        }
     }
 }
