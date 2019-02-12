@@ -2,13 +2,13 @@
 {
     public class VersionResponse : BaseGeneralResponse<string>
     {
-        public  VersionMetaObject Meta { get; set; }
+        public new VersionMetaObject Meta { get; set; }
 
         public class VersionMetaObject
         {
 
-                public bool On_latest { get; set; }
-                public LatestObj Latest { get; set; }
+            public bool On_latest { get; set; }
+            public LatestObj Latest { get; set; }
 
             public class LatestObj
             {
