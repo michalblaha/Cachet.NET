@@ -49,13 +49,17 @@
         /// Gets the specified component of the Cachet API.
         /// </summary>
         /// <param name="id">The component identifier.</param>
-        public ComponentResponse GetComponent(int id)
+        public ComponentObject GetComponent(int id)
         {
             return GetItemReq<ComponentResponse, ComponentObject>("components/", id);
         }
 
+        public bool ExistsComponent(int id)
+        {
+            return ExistsItemReq<ComponentResponse, ComponentObject>("components/", id);
+        }
 
-        public ComponentResponse NewComponent(
+        public ComponentObject NewComponent(
             string name,
             string description,
             Responses.Objects.ComponentStatus status,
@@ -84,15 +88,15 @@
 
                 if (ComponentResponse != null)
                 {
-                    return ComponentResponse;
+                    return ComponentResponse?.Data;
                 }
             }
             return null;
         }
 
-        public ComponentResponse UpdateComponent(Responses.Objects.ComponentObject item)
+        public ComponentObject UpdateComponent(Responses.Objects.ComponentObject item)
         {
-            return UpdateReq<Responses.Objects.ComponentObject, ComponentResponse>("components/", item);
+            return UpdateReq<ComponentResponse, ComponentObject>("components/", item);
             
         }
 
