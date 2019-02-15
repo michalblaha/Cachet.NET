@@ -1,18 +1,17 @@
 ﻿namespace Cachet.NET
 {
-    using System.Threading.Tasks;
-
     using global::Cachet.NET.Responses;
     using global::Cachet.NET.Responses.Objects;
     using RestSharp;
     using RestSharp.Authenticators;
+    using System.Threading.Tasks;
 
     public partial class Cachet
     {
 
 
 
-        public ComponentGroupResponse NewComponentGroup(
+        public ComponentGroupObject NewComponentGroup(
          string name,
          Responses.Objects.ComponentGroupObject.CollapsedType collapsed,
          int order = 0
@@ -33,16 +32,16 @@
 
                 if (response != null)
                 {
-                    return response;
+                    return response.Data;
                 }
             }
             return null;
         }
 
-        public ComponentGroupResponse UpdateComponentGroup(Responses.Objects.ComponentGroupObject item)
+        public ComponentGroupObject UpdateComponentGroup(Responses.Objects.ComponentGroupObject item)
         {
-            return UpdateReq<Responses.Objects.ComponentGroupObject, ComponentGroupResponse>("components/groups/", item);
-            
+            return UpdateReq<ComponentGroupResponse, ComponentGroupObject>("components/groups/", item);
+
         }
 
 
@@ -56,11 +55,16 @@
         /// <summary>
         /// Gets the groups of components of the Cachet API.
         /// </summary>
-        public ComponentGroupResponse GetComponentGroup(int id)
+        public ComponentGroupObject GetComponentGroup(int id)
         {
             return GetItemReq<ComponentGroupResponse, ComponentGroupObject>("components/groups/", id);
-            
         }
+        public bool ExistsComponentGroup(int id)
+        {
+            return ExistsItemReq<ComponentGroupResponse, ComponentGroupObject>("components/groups/", id);
+
+        }
+
 
         /// <summary>
         /// Gets the groups of components of the Cachet API.
@@ -68,7 +72,7 @@
         public ComponentGroupsResponse GetComponentGroups()
         {
             return GetItemsReq<ComponentGroupsResponse, ComponentGroupObject>("components/groups");
-            
+
         }
 
         /// <summary>

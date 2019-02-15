@@ -20,11 +20,14 @@
             set;
         }
 
+        [DeserializeAs(Name = "name")]
         public string Name
         {
             get;
             set;
         }
+
+        [DeserializeAs(Name = "created_at")]
 
         public DateTime CreatedAt
         {
@@ -32,18 +35,22 @@
             set;
         }
 
+        [DeserializeAs(Name = "updated_at")]
+
         public DateTime UpdatedAt
         {
             get;
             set;
         }
 
+        [DeserializeAs(Name = "order")]
         public int Order
         {
             get;
             set;
         }
 
+        [DeserializeAs(Name = "collapsed")]
 
         public CollapsedType Collapsed
         {

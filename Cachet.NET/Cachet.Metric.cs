@@ -1,5 +1,6 @@
 ﻿namespace Cachet.NET
 {
+    using System;
     using System.Threading.Tasks;
 
     using global::Cachet.NET.Responses;
@@ -15,14 +16,19 @@
             
         }
 
-        public MetricResponse GetMetric(int id)
+        public MetricObject GetMetric(int id)
         {
             return GetItemReq<MetricResponse, MetricObject>("metrics/", id);
             
         }
 
+        public bool ExistsMetric(int id)
+        {
+            return ExistsItemReq<MetricResponse, MetricObject>("metrics/", id);
 
-        public MetricResponse NewMetric(
+        }
+
+        public MetricObject NewMetric(
          string name,
          string description,
          string suffix,
@@ -48,15 +54,15 @@
 
                 if (metricResponse != null)
                 {
-                    return metricResponse;
+                    return metricResponse.Data;
                 }
             }
             return null;
         }
 
-        public MetricResponse UpdateMetric(Responses.Objects.MetricObject item)
+        public MetricObject UpdateMetric(Responses.Objects.MetricObject item)
         {
-            return UpdateReq<Responses.Objects.MetricObject, MetricResponse>("metrics/", item);
+            return UpdateReq<MetricResponse, MetricObject>("metrics/", item);
             
         }
 
@@ -64,6 +70,25 @@
         {
 
             return DeleteReq("metrics/", id);
+        }
+
+        public void AddMetricPoint(int metricId, double value, DateTime measured)
+        {
+
+            var Request = new RestRequest("metrics/{id}/points")
+                .AddUrlSegment("id", metricId)
+                .AddJsonBody(new
+            {
+                value = value,
+                timestamp = ((DateTimeOffset)measured.ToUniversalTime()).ToUnixTimeSeconds().ToString()
+            });
+            var Response = this.Rest.Post<MetricResponse>(Request);
+
+            if (Response.ResponseStatus == ResponseStatus.Completed)
+            {
+            }
+            else
+                throw new GeneralApiException();
         }
 
 

@@ -6,31 +6,32 @@
 
     public class PaginationObject
     {
-        public int Total
+        public int total
         {
             get;
             set;
         }
 
-        public int Count
+        public int count
         {
             get;
             set;
         }
 
-        public int PerPage
+
+        public int per_page
         {
             get;
             set;
         }
 
-        public int CurrentPage
+        public int current_page
         {
             get;
             set;
         }
 
-        public int TotalPages
+        public int total_pages
         {
             get;
             set;
@@ -44,13 +45,13 @@
 
         public class LinksObject
         {
-            public int NextPage
+            public string next_page
             {
                 get;
                 set;
             }
 
-            public int PreviousPage
+            public string previous_page
             {
                 get;
                 set;
